@@ -38,6 +38,4 @@ jobs:
     - name: 总脚本
       env:
         COOKIE: ${{ secrets.COOKIE }}
-        BOTTOKEN: ${{ secrets.BOTTOKEN }}
-        USERID: ${{ secrets.USERID }}
       run: python byWebdriver.py
