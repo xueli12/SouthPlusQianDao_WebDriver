@@ -24,8 +24,8 @@ jobs:
     - name: Install Chrome
       run: |
         CHROME_VERSION=103.0.5060.53
-        wget https://storage.googleapis.com/chrome-for-testing-public/130.0.6723.91/linux64/chrome-linux64.zip
-        sudo dpkg -i chrome-linux64.zip || sudo apt-get install -f
+        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        sudo dpkg -i google-chrome-stable_current_amd64.deb || sudo apt-get install -f
         sudo apt-get install -y google-chrome-stable
 
     - name: Install ChromeDriver
