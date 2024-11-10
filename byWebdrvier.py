@@ -110,5 +110,6 @@ except:
     print(response)
     print('日常暂未刷新或领取失败')
 
-input()
-# web.quit()
+
+web.quit()
+# 
