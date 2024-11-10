@@ -38,4 +38,4 @@ jobs:
     - name: 总脚本
       env:
         COOKIE: ${{ secrets.COOKIE }}
-      run: python byWebdriver.py
+      run: python byWebdrvier.py
