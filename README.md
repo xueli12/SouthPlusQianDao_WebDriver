@@ -7,3 +7,5 @@
 ### 本地构建要求
 
 请确保安装了 Chrome 和对应版本的 ChromeDriver。
+
+经过测试得出，cookies只需要eb9e6_winduser与eb9e6_cknum两个即可，其他可以删除。有效期是一年。
