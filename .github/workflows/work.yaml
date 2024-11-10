@@ -24,14 +24,14 @@ jobs:
     - name: Install Chrome
       run: |
         CHROME_VERSION=106.0.5249.21
-        wget https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F1231300%2Fchrome-linux.zip?generation=1701355787197325&alt=media
+        wget https://www.slimjet.com/chrome/download-chrome.php?file=files%2F103.0.5060.53%2Fgoogle-chrome-stable_current_amd64.deb
         sudo dpkg -i google-chrome-stable_current_amd64.deb || sudo apt-get install -f
         sudo apt-get install -y google-chrome-stable
 
     - name: Install ChromeDriver
       run: |
-        wget https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F1231300%2Fchromedriver_linux64.zip?generation=1701355790742168&alt=media
-        unzip Linux_x64_1231300_chromedriver_linux64.zip
+        wget https://chromedriver.storage.googleapis.com/103.0.5060.53/chromedriver_linux64.zip
+        unzip chromedriver_linux64.zip
         chmod +x chromedriver
         sudo mv chromedriver /usr/local/bin/
 
