@@ -32,7 +32,7 @@ chrome_options.add_argument("--headless")  # 如果你在无头模式下运行
 chrome_options.add_argument("--no-sandbox")  # 解决一些权限问题
 chrome_options.add_argument("--disable-dev-shm-usage")  # 解决共享内存问题
 
-service = Service(rf'C:\Users\15258\.cache\selenium\chromedriver\win64\130.0.6723.69\chromedriver.exe')  # 确保路径正确
+service = Service(rf'/usr/local/bin/chromedriver')  # 确保路径正确
 web = webdriver.Chrome(service=service, options=chrome_options)
 
 url = 'https://www.south-plus.net/plugin.php?H_name-tasks.html.html'
