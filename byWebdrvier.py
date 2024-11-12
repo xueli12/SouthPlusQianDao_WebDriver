@@ -126,7 +126,7 @@ for cookie in cookie_data:
 
 # 重新加载页面
 web.get(url)
-
+time.sleep(3)
 # 领取周常
 soup = BeautifulSoup(web.page_source, 'html.parser')
 
@@ -134,6 +134,11 @@ weekly_task_1 = soup.find('span', id_='p_15')
 weekly_task_2 = soup.find('span', id_='p_14')
 
 
+if weekly_task_1 and weekly_task_2:
+    web.find_element(By.XPATH, '//*[@id="p_14"]/a/img').click()
+    web.find_element(By.XPATH, '//*[@id="p_15"]/a/img').click()
+    print('任务已领取')
+    Lingqu()  
 
 if weekly_task_1:
     web.find_element(By.XPATH, '//*[@id="p_14"]/a/img').click()
@@ -143,9 +148,7 @@ if weekly_task_2:
     web.find_element(By.XPATH, '//*[@id="p_15"]/a/img').click()
     Lingqu()
 
-if weekly_task_1 or weekly_task_2:
-    print('任务已领取')
-    
+
     
 else:
     print('任务暂未刷新')
