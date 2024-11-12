@@ -129,9 +129,9 @@ web.get(url)
 time.sleep(3)
 # 领取周常
 soup = BeautifulSoup(web.page_source, 'html.parser')
-
-weekly_task_1 = soup.find('span', id_='p_15')
-weekly_task_2 = soup.find('span', id_='p_14')
+weekly_task_1 = soup.find('span', id='p_15')
+weekly_task_2 = soup.find('span', id='p_14')
+print(weekly_task_1,weekly_task_2)
 
 
 if weekly_task_1 and weekly_task_2:
@@ -140,18 +140,19 @@ if weekly_task_1 and weekly_task_2:
     print('任务已领取')
     Lingqu()  
 
-if weekly_task_1:
-    web.find_element(By.XPATH, '//*[@id="p_14"]/a/img').click()
+elif weekly_task_1:
+    web.find_element(By.XPATH, '//*[@id="p_15"]/a/img').click()
     Lingqu()
 
-if weekly_task_2:
-    web.find_element(By.XPATH, '//*[@id="p_15"]/a/img').click()
+elif weekly_task_2:
+    web.find_element(By.XPATH, '//*[@id="p_14"]/a/img').click()
     Lingqu()
 
 
     
 else:
     print('任务暂未刷新')
+
 
 
 
