@@ -136,8 +136,8 @@ web.get(url)
 # 领取周常
 soup = BeautifulSoup(web.page_source, 'html.parser')
 
-weekly_task_1 = soup.find('img', {'id': 'p_14'})
-weekly_task_2 = soup.find('img', {'id': 'p_15'})
+weekly_task_1 = soup.find('span', {'id': 'p_14'})
+weekly_task_2 = soup.find('span', {'id': 'p_15'})
 
 if weekly_task_1:
     web.find_element(By.XPATH, '//*[@id="p_14"]/a/img').click()
