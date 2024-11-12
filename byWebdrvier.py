@@ -24,7 +24,6 @@ if cookie_json:
     try:
         # 解析 JSON 字符串
         cookie_data = json.loads(cookie_json)
-        print(cookie_data)  # 打印解析后的列表
     except json.JSONDecodeError:
         print("错误：无法解析 COOKIE 环境变量为 JSON。")
 else:
@@ -94,17 +93,12 @@ def Lingqu():
         # 通过server酱发送通知
         url = f"https://sctapi.ftqq.com/{serverKey}.send?title={messagecontent}&desp=messagecontent"
 
-        
-        print(url)
-
         payload={}
         headers = {
         'User-Agent': 'Apifox/1.0.0 (https://apifox.com)'
         }
 
         response = requests.request("GET", url, headers=headers, data=payload)
-
-        print(response)
 
         print('日常暂未刷新或领取失败')
 
@@ -117,7 +111,7 @@ def Lingqu():
 
 url = 'https://www.south-plus.net/plugin.php?H_name-tasks.html.html'
 web.get(url)
-print(web.title)
+
 time.sleep(1)
 # # 保存cookies为json格式
 # cookies = web.get_cookies()
@@ -136,18 +130,22 @@ web.get(url)
 # 领取周常
 soup = BeautifulSoup(web.page_source, 'html.parser')
 
-weekly_task_1 = soup.find('span', {'id': 'p_14'})
-weekly_task_2 = soup.find('span', {'id': 'p_15'})
+weekly_task_1 = soup.find('span', id_='p_15')
+weekly_task_2 = soup.find('span', id_='p_14')
+
+
 
 if weekly_task_1:
     web.find_element(By.XPATH, '//*[@id="p_14"]/a/img').click()
+    Lingqu()
 
 if weekly_task_2:
     web.find_element(By.XPATH, '//*[@id="p_15"]/a/img').click()
+    Lingqu()
 
 if weekly_task_1 or weekly_task_2:
     print('任务已领取')
-    Lingqu()
+    
     
 else:
     print('任务暂未刷新')
