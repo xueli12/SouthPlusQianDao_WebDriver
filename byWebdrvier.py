@@ -5,6 +5,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 import json
+from bs4 import BeautifulSoup
 import requests
 import time
 import os
@@ -15,6 +16,8 @@ serverKey = os.environ.get('serverKey')
 
 # 获取 COOKIE 环境变量
 cookie_json = os.environ.get('COOKIE')
+
+# 获取 COOKIE 环境变量并解析为 JSON 列表
 
 
 if cookie_json:
@@ -32,8 +35,85 @@ chrome_options.add_argument("--headless")  # 如果你在无头模式下运行
 chrome_options.add_argument("--no-sandbox")  # 解决一些权限问题
 chrome_options.add_argument("--disable-dev-shm-usage")  # 解决共享内存问题
 
+
 service = Service(rf'/usr/local/bin/chromedriver')  # 确保路径正确
 web = webdriver.Chrome(service=service, options=chrome_options)
+
+def Lingqu():
+    try:
+        # 切换到进行中的任务
+        web.find_element(By.XPATH, '//*[@id="main"]/table/tbody/tr/td[1]/div[2]/table/tbody/tr[3]/td').click()
+        # 点击进行中的任务
+        # 完成日常
+        time.sleep(2)
+        try:
+            web.find_element(By.XPATH, '//*[@id="both_15"]/a/img').click()
+            print('日常领取成功')
+            # 用urlencode编码中文内容
+            messagecontent = '日常领取成功'
+            messagecontent = requests.utils.quote(messagecontent)
+            # 通过server酱发送通知
+            url = f"https://sctapi.ftqq.com/{serverKey}.send?title={messagecontent}&desp=messagecontent"
+
+            payload={}
+            headers = {
+            'User-Agent': 'Apifox/1.0.0 (https://apifox.com)'
+            }
+
+            response = requests.request("GET", url, headers=headers, data=payload)
+        except:
+            print('日常领取失败')
+            
+            
+        try:
+            # 尝试点击周常,没有就跳了
+            web.find_element(By.XPATH, '//*[@id="both_14"]/a/img').click()
+            print('周常领取成功')
+            # 用urlencode编码中文内容
+            messagecontent = '周常领取成功'
+            messagecontent = requests.utils.quote(messagecontent)
+            # 通过server酱发送通知
+            url = f"https://sctapi.ftqq.com/{serverKey}.send?title={messagecontent}&desp=messagecontent"
+
+            payload={}
+            headers = {
+            'User-Agent': 'Apifox/1.0.0 (https://apifox.com)'
+            }
+
+            response = requests.request("GET", url, headers=headers, data=payload)
+
+        except:
+            pass
+
+
+    except:
+        # 用urlencode编码中文内容
+        messagecontent = '日常领取失败'
+        messagecontent = requests.utils.quote(messagecontent)
+
+        # 通过server酱发送通知
+        url = f"https://sctapi.ftqq.com/{serverKey}.send?title={messagecontent}&desp=messagecontent"
+
+        
+        print(url)
+
+        payload={}
+        headers = {
+        'User-Agent': 'Apifox/1.0.0 (https://apifox.com)'
+        }
+
+        response = requests.request("GET", url, headers=headers, data=payload)
+
+        print(response)
+
+        print('日常暂未刷新或领取失败')
+
+
+
+
+
+
+
 
 url = 'https://www.south-plus.net/plugin.php?H_name-tasks.html.html'
 web.get(url)
@@ -54,62 +134,26 @@ for cookie in cookie_data:
 web.get(url)
 
 # 领取周常
-try:
+soup = BeautifulSoup(web.page_source, 'html.parser')
+
+weekly_task_1 = soup.find('img', {'id': 'p_14'})
+weekly_task_2 = soup.find('img', {'id': 'p_15'})
+
+if weekly_task_1:
     web.find_element(By.XPATH, '//*[@id="p_14"]/a/img').click()
-    print('周常任务已领取')
-except:
-    print('周常暂未刷新')
 
-try:
+if weekly_task_2:
     web.find_element(By.XPATH, '//*[@id="p_15"]/a/img').click()
-    print('日常任务已领取')
-    # 切换到进行中的人物
-    web.find_element(By.XPATH, '//*[@id="main"]/table/tbody/tr/td[1]/div[2]/table/tbody/tr[3]/td').click()
-    # 点击进行中的任务
-    # 完成日常
-    web.find_element(By.XPATH, '//*[@id="both_15"]/a/img').click()
-    time.sleep(3)
-    try:
-        web.find_element(By.XPATH, '//*[@id="both_15"]/a/img').click()
-    except:
-        print('日常领取成功')
-        # 用urlencode编码中文内容
-        messagecontent = '日常领取成功'
-        messagecontent = requests.utils.quote(messagecontent)
-        # 通过server酱发送通知
-        url = f"https://sctapi.ftqq.com/{serverKey}.send?title={messagecontent}&desp=messagecontent"
 
-        payload={}
-        headers = {
-        'User-Agent': 'Apifox/1.0.0 (https://apifox.com)'
-        }
-
-        response = requests.request("GET", url, headers=headers, data=payload)
-        
-    try:
-        # 尝试点击周常,没有就跳了
-        web.find_element(By.XPATH, '//*[@id="both_14"]/a/img').click()
-    except:
-        pass
+if weekly_task_1 or weekly_task_2:
+    print('任务已领取')
+    Lingqu()
+    
+else:
+    print('任务暂未刷新')
 
 
-except:
-    # 用urlencode编码中文内容
-    messagecontent = '日常领取失败'
-    messagecontent = requests.utils.quote(messagecontent)
-    # 通过server酱发送通知
-    url = f"https://sctapi.ftqq.com/{serverKey}.send?title={messagecontent}&desp=messagecontent"
-    print(url)
 
-    payload={}
-    headers = {
-    'User-Agent': 'Apifox/1.0.0 (https://apifox.com)'
-    }
-
-    response = requests.request("GET", url, headers=headers, data=payload)
-    print(response)
-    print('日常暂未刷新或领取失败')
 
 
 web.quit()
-# 
