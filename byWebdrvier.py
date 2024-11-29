@@ -11,7 +11,7 @@ import time
 import os
 
 # 获取系统变量serverKey
-serverKey = os.environ.get('serverKey')
+#serverKey = os.environ.get('serverKey')
 
 
 # 获取 COOKIE 环境变量
@@ -52,7 +52,7 @@ def Lingqu():
             messagecontent = '日常领取成功'
             messagecontent = requests.utils.quote(messagecontent)
             # 通过server酱发送通知
-            url = f"https://sctapi.ftqq.com/{serverKey}.send?title={messagecontent}&desp=messagecontent"
+            #url = f"https://sctapi.ftqq.com/{serverKey}.send?title={messagecontent}&desp=messagecontent"
 
             payload={}
             headers = {
@@ -72,7 +72,7 @@ def Lingqu():
             messagecontent = '周常领取成功'
             messagecontent = requests.utils.quote(messagecontent)
             # 通过server酱发送通知
-            url = f"https://sctapi.ftqq.com/{serverKey}.send?title={messagecontent}&desp=messagecontent"
+            #url = f"https://sctapi.ftqq.com/{serverKey}.send?title={messagecontent}&desp=messagecontent"
 
             payload={}
             headers = {
@@ -91,7 +91,7 @@ def Lingqu():
         messagecontent = requests.utils.quote(messagecontent)
 
         # 通过server酱发送通知
-        url = f"https://sctapi.ftqq.com/{serverKey}.send?title={messagecontent}&desp=messagecontent"
+        #url = f"https://sctapi.ftqq.com/{serverKey}.send?title={messagecontent}&desp=messagecontent"
 
         payload={}
         headers = {
