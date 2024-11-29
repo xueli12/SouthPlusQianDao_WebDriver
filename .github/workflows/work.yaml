@@ -2,6 +2,8 @@ name: SouthPlus签到
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '2 */9 * * *'  # 每隔 9 小时 02 分钟运行一次
 
 jobs:
   run-script:
