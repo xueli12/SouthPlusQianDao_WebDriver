@@ -11,7 +11,7 @@ import time
 import os
 
 # 获取系统变量serverKey
-#serverKey = os.environ.get('serverKey')
+#serverKey = os.environ.get('serverKey') 计划改用https://xz.qqoq.net/#/admin/one
 
 
 # 获取 COOKIE 环境变量
